@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_LogLevel: 2
   m_PlayerPrefab: {fileID: 1762584478483146, guid: 6e8c3bba975905249a6e7b2a1482fc52,
     type: 2}
-  m_AutoCreatePlayer: 0
+  m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
   m_OfflineScene: CalumDev
   m_OnlineScene: TestOnline
