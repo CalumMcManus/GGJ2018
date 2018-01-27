@@ -11,6 +11,8 @@ public class NetworkUI : MonoBehaviour {
     [Header("List Games")]
     [SerializeField] private RectTransform m_GameList;
     [SerializeField] private Button m_JoinGameBtn;
+
+    private List<int> m_MatchIndexs = new List<int>();
 	public void CreateGame()
     {
         m_NetworkHandle.CreateMatch(m_GameName.text);
@@ -24,19 +26,23 @@ public class NetworkUI : MonoBehaviour {
         }
         List<string> gameNames = m_NetworkHandle.GetMatchList();
         int matchIndex = 0;
+        m_MatchIndexs.Clear();
         foreach(string name in gameNames)
         {
             Button btn = Instantiate(m_JoinGameBtn, m_GameList) as Button;
             btn.transform.GetChild(0).GetComponent<Text>().text = name;
-            //btn.onClick.AddListener()
+            m_MatchIndexs.Add(matchIndex);
+            Debug.Log(m_MatchIndexs[matchIndex]);
+            btn.onClick.AddListener(delegate { JoinGame(0); });
             matchIndex++;
 
         }
     }
 
-    public void JoinGame()
+    public void JoinGame(int index)
     {
-       // m_NetworkHandle.JoinMatch()
+        Debug.Log(index);
+        m_NetworkHandle.JoinMatch(index);
     }
 
 }

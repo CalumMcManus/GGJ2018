@@ -7,8 +7,10 @@ using UnityEngine.Networking.Match;
 public class NetworkHandler : NetworkManager
 {
     private List<MatchInfoSnapshot> m_Matches = new List<MatchInfoSnapshot>();
+    public int playerID = -1;
     private void Awake()
     {
+        playerID = 0;
         StartMatchMaker();
         SetMatchHost("mm.unet.unity3d.com", 443, true);
     }
@@ -23,6 +25,8 @@ public class NetworkHandler : NetworkManager
         base.OnMatchCreate(success, extendedInfo, matchInfo);
         if (!success)
             Debug.Log("NetworkHandler: OnMatchCreate: Failed to create match" + extendedInfo);
+        else
+            playerID = 1;
 
     }
 
@@ -37,7 +41,10 @@ public class NetworkHandler : NetworkManager
         if (!success)
             Debug.Log("NetworkHandler: OnMatchJoined: Failed to join match " + extendedInfo);
         else
+        {
             Debug.Log("NetworkHandler: OnMatchJoined: Successfully joined match " + matchInfo.networkId);
+            playerID = 2;
+        }
     }
 
     public List<string> GetMatchList()
@@ -55,6 +62,11 @@ public class NetworkHandler : NetworkManager
         base.OnMatchList(success, extendedInfo, matchList);
         m_Matches.Clear();
         m_Matches.AddRange(matchList);
+    }
+
+    public override void OnClientConnect(NetworkConnection conn)
+    {
+        //base.OnClientConnect(conn);
     }
 
     public override void OnClientDisconnect(NetworkConnection conn)
