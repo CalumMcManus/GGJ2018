@@ -19,9 +19,10 @@ public class LightGradient : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        float dist = Vector3.Distance(player.transform.position, m_Start);
-        float b = dist / 100;
-        float r = (100 - dist) / 100;
+        float dist = Vector3.Distance(player.transform.position, End);
+        Debug.Log(dist);
+        float b = dist / 1000;
+        float r = (1000 - dist) / 1000;
         Color color = new Color(r, 0, b);
         RenderSettings.ambientLight = color;
 	}
